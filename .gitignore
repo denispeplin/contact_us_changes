@@ -1,3 +1,6 @@
 _build
 .elixir_ls
 deps
+assets/node_modules/
+assets/package-lock.json
+priv/static/js/
