@@ -26,22 +26,13 @@ defmodule ContactUsWeb.ClientLive.Index do
     ClientView.render("form.html", assigns)
   end
 
-  def handle_event("validate", %{"client" => params} = args, socket) do
+  def handle_event("validate", %{"client" => params}, socket) do
+    changeset =
+      %Client{}
+      |> Accounts.change_client(params)
+      |> Map.put(:action, :insert)
 
-    # First determine which input field was updated
-    target = args["_target"] |> List.last()
-
-    # Then updated our internal form state with the new input field value
-    form_data = socket.assigns.form_data
-                |> Map.put(target, params[target])
-
-    {_, %Ecto.Changeset{} = changeset} = form_data
-                                          |> Accounts.validate_form_input() # validate our form data
-
-      value = %{changeset: changeset, form_data: form_data}
-
-      # Return the newly updated changeset to our form.
-      {:noreply, assign(socket, value)}
+    {:noreply, assign(socket, changeset: changeset, form_data: params)}
   end
 
   def handle_event("save", %{"client" => params} = args, socket) do

@@ -99,8 +99,8 @@ defmodule ContactUs.Accounts do
       %Ecto.Changeset{source: %Client{}}
 
   """
-  def change_client(%Client{} = client) do
-    Client.changeset(client, %{})
+  def change_client(%Client{} = client, params \\ %{}) do
+    Client.changeset(client, params)
   end
 
   def validate_form_input(attrs) do
