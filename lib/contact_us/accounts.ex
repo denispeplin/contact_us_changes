@@ -110,6 +110,6 @@ defmodule ContactUs.Accounts do
   end
 
   defp format_form_input(attrs) do
-    for {k,v} <- attrs, into: %{}, do: {String.to_existing_atom(k), v}
+    for {k, v} <- attrs, into: %{}, do: {String.to_existing_atom(k), v}
   end
 end

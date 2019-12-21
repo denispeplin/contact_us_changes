@@ -8,17 +8,20 @@ defmodule ContactUsWeb.ClientLive.Index do
 
   def mount(_session, socket) do
     IO.inspect(connected?(socket), label: "CONNTECTION STATUS")
+
     value = %{
       changeset: Accounts.change_client(%Client{}),
-      form_data: %{                # This is the form data to be captured and utilized to create a new client
+      # This is the form data to be captured and utilized to create a new client
+      form_data: %{
         "first_name" => "",
         "last_name" => "",
         "email_address" => "",
         "phone_number" => "",
         "company" => "",
-        "service" => "",
+        "service" => ""
       }
     }
+
     {:ok, assign(socket, value)}
   end
 
@@ -39,14 +42,14 @@ defmodule ContactUsWeb.ClientLive.Index do
     params
     |> Accounts.create_client()
     |> case do
-        {:ok, _user} ->
-          {:stop,
-          socket
-          |> put_flash(:info, "Client created")
-          |> redirect(to: Routes.client_path(ContactUsWeb.Endpoint, :index))}
+      {:ok, _user} ->
+        {:stop,
+         socket
+         |> put_flash(:info, "Client created")
+         |> redirect(to: Routes.client_path(ContactUsWeb.Endpoint, :index))}
 
-        {:error, %Ecto.Changeset{} = changeset} ->
-          {:noreply, assign(socket, changeset: changeset)}
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
     end
   end
 end
