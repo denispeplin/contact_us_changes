@@ -10,7 +10,7 @@ defmodule ContactUsWeb.ClientLive.Index do
     IO.inspect(connected?(socket), label: "CONNTECTION STATUS")
 
     value = %{
-      changeset: Accounts.change_client(%Client{}),
+      changeset: %Client{} |> Accounts.change_client() |> Map.put(:action, :insert),
       # This is the form data to be captured and utilized to create a new client
       form_data: %{
         "first_name" => "",
