@@ -25,28 +25,15 @@ defmodule ContactUs.Accounts.Client do
       :company,
       :service
     ])
+    |> validate_phone_number()
   end
 
-  def validate_form_input(%Ecto.Changeset{changes: %{phone_number: number}} = changeset) do
-    validate_phone_number(number)
-    |> case do
-      :error ->
-        {:error,
-         changeset
-         |> Map.put(:action, :insert)
-         |> add_error(:phone_number, "Number must be valid number")}
+  defp validate_phone_number(changeset) do
+    phone_number = get_change(changeset, :phone_number, "")
 
-      _ ->
-        {:ok, changeset}
-    end
-  end
-
-  defp validate_phone_number(""), do: :ok
-
-  defp validate_phone_number(value) do
-    case Integer.parse(value) do
-      {_integer, ""} -> :ok
-      _ -> :error
+    case Integer.parse(phone_number) do
+      {_integer, ""} -> changeset
+      _ -> add_error(changeset, :phone_number, "Number must be valid number")
     end
   end
 end
