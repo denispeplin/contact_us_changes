@@ -33,5 +33,11 @@ defmodule ContactUs.Accounts.Client do
   end
 
   defp validate_phone_number(""), do: :ok
-  defp validate_phone_number(value), do: Integer.parse(value)
+
+  defp validate_phone_number(value) do
+    case Integer.parse(value) do
+      {_integer, ""} -> :ok
+      _ -> :error
+    end
+  end
 end
