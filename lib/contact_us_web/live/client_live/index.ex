@@ -9,20 +9,9 @@ defmodule ContactUsWeb.ClientLive.Index do
   def mount(_session, socket) do
     IO.inspect(connected?(socket), label: "CONNTECTION STATUS")
 
-    value = %{
-      changeset: %Client{} |> Accounts.change_client() |> Map.put(:action, :insert),
-      # This is the form data to be captured and utilized to create a new client
-      form_data: %{
-        "first_name" => "",
-        "last_name" => "",
-        "email_address" => "",
-        "phone_number" => "",
-        "company" => "",
-        "service" => ""
-      }
-    }
+    changeset = %Client{} |> Accounts.change_client() |> Map.put(:action, :insert)
 
-    {:ok, assign(socket, value)}
+    {:ok, assign(socket, changeset: changeset)}
   end
 
   def render(assigns) do
@@ -35,7 +24,7 @@ defmodule ContactUsWeb.ClientLive.Index do
       |> Accounts.change_client(params)
       |> Map.put(:action, :insert)
 
-    {:noreply, assign(socket, changeset: changeset, form_data: params)}
+    {:noreply, assign(socket, changeset: changeset)}
   end
 
   def handle_event("save", %{"client" => params} = args, socket) do

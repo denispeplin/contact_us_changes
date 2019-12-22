@@ -40,6 +40,8 @@ defmodule ContactUsWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
+      import Ecto.Changeset, only: [get_field: 2]
+
       import ContactUsWeb.ErrorHelpers
       import ContactUsWeb.Gettext
       alias ContactUsWeb.Router.Helpers, as: Routes

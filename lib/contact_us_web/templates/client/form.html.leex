@@ -1,27 +1,27 @@
 <%= form_for @changeset, "#", [phx_change: :validate, phx_submit: :save], fn f -> %>
 
   <%= label f, :first_name %>
-  <%= text_input f, :first_name, value: @form_data["first_name"] %>
+  <%= text_input f, :first_name, value: get_field(@changeset, :first_name) %>
   <%= error_tag f, :first_name %>
 
   <%= label f, :last_name %>
-  <%= text_input f, :last_name, value: @form_data["last_name"] %>
+  <%= text_input f, :last_name, value: get_field(@changeset, :last_name) %>
   <%= error_tag f, :last_name %>
 
   <%= label f, :email_address %>
-  <%= text_input f, :email_address, value: @form_data["email_address"] %>
+  <%= text_input f, :email_address, value: get_field(@changeset, :email_address) %>
   <%= error_tag f, :email_address %>
 
   <%= label f, :phone_number %>
-  <%= text_input f, :phone_number, value: @form_data["phone_number"] %>
+  <%= text_input f, :phone_number, value: get_field(@changeset, :phone_number) %>
   <%= error_tag f, :phone_number %>
 
   <%= label f, :company %>
-  <%= text_input f, :company, value: @form_data["company"] %>
+  <%= text_input f, :company, value: get_field(@changeset, :company) %>
   <%= error_tag f, :company %>
 
   <%= label f, :service %>
-  <%= text_input f, :service, value: @form_data["service"] %>
+  <%= text_input f, :service, value: get_field(@changeset, :service) %>
   <%= error_tag f, :service %>
 
   <div>
